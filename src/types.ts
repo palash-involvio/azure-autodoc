@@ -1,4 +1,4 @@
-import { OpenAIChat } from 'langchain/llms';
+import { AzureChatOpenAI } from "@langchain/azure-openai";
 
 export type AutodocUserConfig = {
   llms: LLMModels[];
@@ -94,7 +94,7 @@ export type LLMModelDetails = {
   inputCostPer1KTokens: number;
   outputCostPer1KTokens: number;
   maxLength: number;
-  llm: OpenAIChat;
+  llm: AzureChatOpenAI;
   inputTokens: number;
   outputTokens: number;
   succeeded: number;

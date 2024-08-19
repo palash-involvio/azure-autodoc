@@ -1,7 +1,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { Md5 } from 'ts-md5';
-import { OpenAIChat } from 'langchain/llms';
+import { AzureChatOpenAI } from "@langchain/azure-openai";
 import { encoding_for_model } from '@dqbd/tiktoken';
 import { APIRateLimit } from '../../utils/APIRateLimit.js';
 import {
@@ -55,7 +55,7 @@ export const processRepository = async (
 
   const callLLM = async (
     prompt: string,
-    model: OpenAIChat,
+    model: AzureChatOpenAI,
   ): Promise<string> => {
     return rateLimit.callApi(() => model.call(prompt));
   };

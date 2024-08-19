@@ -1,6 +1,6 @@
 {
-  "name": "autodoc",
-  "repositoryUrl": "https://github.com/context-labs/autodoc",
+  "name": "MyProject",
+  "repositoryUrl": "https://github.com/ingig/code-narrator",
   "root": ".",
   "output": "./.autodoc",
   "llms": [

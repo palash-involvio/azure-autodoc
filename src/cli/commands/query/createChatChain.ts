@@ -1,4 +1,4 @@
-import { OpenAIChat } from 'langchain/llms';
+import { AzureChatOpenAI } from "@langchain/azure-openai";
 import { LLMChain, ChatVectorDBQAChain, loadQAChain } from 'langchain/chains';
 import { PromptTemplate } from 'langchain/prompts';
 import { HNSWLib } from '../../../langchain/hnswlib.js';
@@ -17,7 +17,7 @@ const makeQAPrompt = (projectName: string, repositoryUrl: string, contentType: s
   PromptTemplate.fromTemplate(
     `You are an AI assistant for a software project called ${projectName}. You are trained on all the ${contentType} that makes up this project.
   The ${contentType} for the project is located at ${repositoryUrl}.
-You are given the following extracted parts of a technical summary of files in a ${contentType} and a question. 
+You are given the following extracted parts of a technical summary of files in a ${contentType} and a question.
 Provide a conversational answer with hyperlinks back to GitHub.
 You should only use hyperlinks that are explicitly listed in the context. Do NOT make up a hyperlink that is not listed.
 Include lots of ${contentType} examples and links to the ${contentType} examples, where appropriate.
@@ -60,14 +60,14 @@ export const makeChain = (
    */
   const llm = llms?.[1] ?? llms[0];
   const questionGenerator = new LLMChain({
-    llm: new OpenAIChat({ temperature: 0.1, modelName: llm }),
+    llm: new AzureChatOpenAI({ temperature: 0.1, modelName: llm }),
     prompt: CONDENSE_PROMPT,
   });
 
   // eslint-disable-next-line prettier/prettier
   const QA_PROMPT = makeQAPrompt(projectName, repositoryUrl, contentType, chatPrompt, targetAudience);
   const docChain = loadQAChain(
-    new OpenAIChat({
+    new AzureChatOpenAI({
       temperature: 0.2,
       frequencyPenalty: 0,
       presencePenalty: 0,
